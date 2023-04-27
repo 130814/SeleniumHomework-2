@@ -19,7 +19,8 @@ import static java.time.Duration.*;
 public class TestSuit {
     protected static WebDriver driver;
     private static Calendar timestamp;
-    WebDriverWait wait = new WebDriverWait(driver, ofSeconds(20));
+    private static Object expectedresult;
+     WebDriverWait wait = new WebDriverWait(driver, ofSeconds(20));
     public static void clickOnElement(By by) {
         driver.findElement(by).click();
     }
@@ -127,35 +128,36 @@ public class TestSuit {
             //click on Add to compare list on $25 Virt2ual Gift card
 
             clickOnElement(By.xpath("(//a[@href=\"/compareproducts\"])[2]"));
-           // String text = getTextFromElement(By.xpath("Your registration completed"));
-           // System.out.println(text);
-           // Assert.assertEquals(text, expectedresult, "Registration not done");
 
+            //clickOnElement(By.xpath("//img[@src='https://demo.nopcommerce.com/Themes/DefaultClean/Content/images/logo.png']"));
+            //driver.findElement(By.xpath("//button[@onclick='return AjaxCart.addproducttocomparelist(\"/compareproducts/add/43\"),!1']")).click();
+            clickOnElement(By.xpath("/html/body/div[6]/div[3]/div/div/div/div/div[4]/div[2]/div[4]/div/div[2]/div[3]/div[2]/button[2]"));
+            //click on product comparison list
+            clickOnElement(By.xpath("//*[@id=\"bar-notification\"]/div/p/a"));
+            String text1 = getTextFromElement(By.partialLinkText("HTC One M8 Android L 5.0 Lollipop\n"));
+            System.out.println(text1);
+            String text2 = getTextFromElement(By.partialLinkText("$25 Virtual Gift Card\n"));
+            System.out.println(text2);
 
-
-            //String name1 = driver.findElement(By.xpath("div/ta/html/body/div[6]/div[3]/div/div[2]/div/div[2]/ble/tbody/tr[3]/td[2]/a")).getText();
-           // System.out.println("First Product is: " + name1);
-           // String name2 = driver.findElement(By.xpath("/html/body/div[6]/div[3]/div/div[2]/div/div[2]/div/table/tbody/tr[3]/td[3]/a")).getText();
-          //  System.out.println("Second Product is: " + name2);
-          //  driver.findElement(By.className("clear-list")).
-           // String message = driver.findElement(By.className("no-data")).getText();
-            //System.out.println(message);
+            clickOnElement(By.className("clear-list"));
+            String message = getTextFromElement(By.className("no-data"));
+            System.out.println(message);
+            Assert.assertEquals(text, expectedresult, "Product Compare");
         }
-
-
     @Test
     public static void Productaddtocartandprint(){
     openBrowser();
     clickOnElement(By.xpath("(//a[@title='Show products in category Electronics'])[1]"));
     clickOnElement(By.xpath("(//a[@title='Show products in category Camera & photo'])[1]"));
-       // String text = getTextFromElement(By.xpath("Your registration completed"));
-     //   System.out.println(text);
-     //   Assert.assertEquals(text, expectedresult, "Registration not done");
-
-
-
+        //driver.findElement(By.xpath("(//a[@title='Show products in category Electronics'])[1]")).click();
+      //  driver.findElement(By.xpath("(//a[@title='Show products in category Camera & photo'])[1]")).click();
+        clickOnElement(By.xpath("(//button[@class='button-2 product-box-add-to-cart-button'])[2]"));
+        String name1 = driver.findElement(By.xpath("/html/body/div[6]/div[3]/div/div[3]/div/div[2]/div[2]/div[2]/div/div/div[3]/div/div[2]/h2/a")).getText();
+        System.out.println(name1);
+        driver.findElement(By.className("cart-label")).click();
+        String name = driver.findElement(By.className("product-name")).getText();
+        System.out.println(name);
     }
-
 @Test
 public static void Registerusersucessfullyvote(){
     clickOnElement(By.xpath("//label[@for=pollanswers-2]"));
